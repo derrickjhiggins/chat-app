@@ -1,0 +1,36 @@
+/* home.component.css */
+
+body {
+    background-color: #ff7f0e; /* OSU orange */
+    color: #333; /* Dark text for readability */
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff; /* White background for content */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Light shadow */
+}
+
+h1, h2 {
+    color: #fff; /* White headings */
+}
+
+ul {
+    padding-left: 20px; /* Indent list items */
+}
+
+button {
+    background-color: #ff7f0e; /* OSU orange */
+    color: #fff; /* White text */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e65c00; /* Darker orange on hover */
+}
