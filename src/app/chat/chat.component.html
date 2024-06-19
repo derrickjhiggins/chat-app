@@ -13,19 +13,24 @@
               Hi! How can I help you today? Here are some example questions you can ask me:
             </p>
             <ul>
-              <button (click)="sendExampleQuestion('What are the symptoms of diabetes?')" class="btn btn-outline-primary btn-sm">What are the symptoms of diabetes?</button>
-              <button (click)="sendExampleQuestion('How can I lower my blood pressure?')" class="btn btn-outline-primary btn-sm">How can I lower my blood pressure?</button>
-              <button (click)="sendExampleQuestion('What are the risk factors for heart disease?')" class="btn btn-outline-primary btn-sm">What are the risk factors for heart disease?</button>
-              <button (click)="sendExampleQuestion('How can I improve my sleep quality?')" class="btn btn-outline-primary btn-sm">How can I improve my sleep quality?</button>
+              <button (click)="sendMessage('What are the symptoms of diabetes?')" class="btn btn-outline-primary btn-sm">What are the symptoms of diabetes?</button>
+              <button (click)="sendMessage('How can I lower my blood pressure?')" class="btn btn-outline-primary btn-sm">How can I lower my blood pressure?</button>
+              <button (click)="sendMessage('What are the risk factors for heart disease?')" class="btn btn-outline-primary btn-sm">What are the risk factors for heart disease?</button>
+              <button (click)="sendMessage('How can I improve my sleep quality?')" class="btn btn-outline-primary btn-sm">How can I improve my sleep quality?</button>
             </ul>
           </ng-container>
   
-          <!-- Display messages -->
-          <div *ngFor="let message of messages" [ngClass]="{'user-message chat-message': message.sender === 'user', 'chatbot-message chat-message': message.sender === 'chatbot'}">
-            <p class="card p-2 mb-2">
-              {{ message.text }}
-            </p>
+          <div *ngFor="let message of messages" class="response-item">
+            <div>
+              <h3>{{ message.sender }}</h3>
+              <div *ngFor="let text of message.text" class="text-block">
+                <div class="response">
+                  <p>{{ text }}</p>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
   
           <!-- User input and send button -->
           <div class="user-input position-fixed bottom-0 start-50 translate-middle-x p-3 bg-light border rounded shadow-sm" style="max-width: 600px;">
@@ -35,13 +40,6 @@
               <button class="btn btn-primary btn-lg mt-2" (click)="sendMessage()" [disabled]="!userInput.trim()">Send</button>
             </div>
           </div>
-  
-          <!-- Typing dots or indicator (if needed) -->
-          <div class="typing-dots" id="typing-dots">
-            <!-- Add typing animation or indicator here if needed -->
-          </div>
         </div>
       </div>
     </div>
-  </div>
-  

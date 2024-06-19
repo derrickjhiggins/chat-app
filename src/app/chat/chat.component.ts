@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ChatService } from './chat.service';
 import { FormsModule } from '@angular/forms';
@@ -13,57 +13,39 @@ import { CommonModule } from '@angular/common';
 })
 export class ChatComponent {
     userInput: string = '';
-    messages: { sender: 'user' | 'chatbot', text: string }[] = [];
-    isTyping: boolean = false;
+    messages: { sender: string, text: string[] }[] = [];
   
     constructor(private chatService: ChatService) {}
-
-    sendExampleQuestion(exampleQuestion: string): void {
-        this.appendMessage('user', exampleQuestion);
-        const messagePayload = { message: exampleQuestion };
     
-        // Send the question to the chatbot service
+    sendMessage(exampleQuestion?: string): void {
+        // get user input query
+        const userInput = exampleQuestion ? exampleQuestion.trim() : this.userInput.trim();
+        if (!userInput) return;
+
+        this.appendMessage('user', [userInput]);
+        this.userInput = '';
+        const messagePayload = { message: userInput };
+
         this.chatService.sendMessage(messagePayload).subscribe({
             next: data => {
-              this.appendMessage('chatbot', data.response);
-              console.log('Chatbot response:', data.response); // Debugging output
+                let res: string[] = [];
+                for (let i = 0; i < data.length; i ++ ) {
+                    let urls: string = "<i>Sources:<i><br>"
+                    if (data[i].urls && data[i].urls.length > 0) {
+                        // URLs exist, construct the links
+                        urls += data[i].urls.map((url: string) => `<a href="${url}" target="_blank">${url}</a><br>`).join('');
+                    } else {
+                        urls = "<i>Sources not available.<i>";
+                    }                                 
+                    const message: string = `${data[i].agentName}:<br>${data[i].agentResponse}<br><br>${urls}`;
+                    res.push(message);
+                }
+                this.appendMessage('chatbot', res)
             },
             error: error => {
-              console.error('Error fetching chatbot response:', error);
-              // Handle the error (e.g., display an error message to the user)
+                console.error('Error fetching chatbot response:', error);
             },
-            complete: () => {
-              this.isTyping = false;
-            }
-          });
-      }
-    
-    sendMessage() {
-      const userInput = this.userInput.trim();
-      if (!userInput) return;
-      console.log(userInput);
-  
-      this.appendMessage('user', userInput);
-      this.userInput = '';
-      const messagePayload = { message: userInput };
-      console.log(messagePayload);
-  
-      this.isTyping = true;
-  
-      this.chatService.sendMessage(messagePayload).subscribe({
-        next: data => {
-          this.appendMessage('chatbot', data.response);
-          console.log('Chatbot response:', data.response); // Debugging output
-        },
-        error: error => {
-          console.error('Error fetching chatbot response:', error);
-          // Handle the error (e.g., display an error message to the user)
-        },
-        complete: () => {
-          this.isTyping = false;
-        }
       });
-      
     }
 
     onTextareaInput(event: Event): void {
@@ -72,7 +54,7 @@ export class ChatComponent {
         textarea.style.height = `${textarea.scrollHeight}px`; // Set textarea height based on content
     }
 
-    appendMessage(sender: 'user' | 'chatbot', text: string) {
+    appendMessage(sender: string, text: string[]) {
         this.messages.push({ sender, text });
     }
 }

@@ -62,3 +62,41 @@ button:hover {
     opacity: 0.65; /* Reduce opacity for disabled state */
 }
 
+.response-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  
+  .response-item {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .response {
+    background-color: #f0f0f0; /* Light gray background */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    width: 100%; /* Ensures the response box takes full width */
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  
+  .text-block {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%; /* Ensures texts within each message take full width */
+  }
+  
+  .text-block .response {
+    flex: 0 0 50%; /* Two responses side by side */
+    padding: 6px;
+    box-sizing: border-box;
+  }
+  
+  .text-block .response p {
+    margin: 0;
+    background-color: #e6e6e6; /* Light background for each text block */
+    border-radius: 4px;
+  }

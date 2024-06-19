@@ -7,7 +7,7 @@ import { Observable, catchError } from 'rxjs';
 })
 export class ChatService {
 
-    private apiUrl: string = "http://localhost:5000";
+    private apiUrl: string = "http://localhost:3001";
 
     constructor(private http: HttpClient){}
 
