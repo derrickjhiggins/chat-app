@@ -1,102 +1,169 @@
-/* Custom CSS for chat messages */
-.chat-message {
-    clear: both;
-    margin: 10px;
+/* General styles */
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.row {
+    flex: 1; /* Make the row fill remaining vertical space */
+    display: flex;
+    overflow: hidden; /* Hide overflow from sidebar and main content */
+}
+
+.sidebar {
+    background-color: #dd5f0d; /* Sidebar background color */
+    color: #fff; /* Text color */
+    padding: 20px;
+}
+
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.sidebar button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.chat-area {
+    background-color: #fff; /* White background for chat area */
+    padding: 20px;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.chat-area p {
+    margin-bottom: 10px;
+}
+
+.chat-area ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.chat-area button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.messages {
+    overflow-y: auto; /* Enable scrolling for messages */
+    max-height: 60vh; /* Limit height for messages area */
+    padding-right: 20px; /* Provide space for scrollbar */
+}
+
+/* Response Item Styles */
+.response-item {
+    display: flex; /* Make each response item a flex container */
+    margin-bottom: 10px;
+    justify-content: flex-start; /* Default alignment for response items */
+}
+
+.response-item .text-block {
+    display: inline-block;
+    max-width: 80%; /* Limit text block width */
     padding: 10px;
     border-radius: 10px;
+}
+
+.response-item.user-message {
+    justify-content: flex-end; /* Align user messages to the right */
+    width: 100%; /* Make sure the user message takes the full width */
+    text-align: right; /* Ensure text within the message is right-aligned */
+}
+
+.response-item.user-message .text-block {
+    background-color: #dd5f0d; /* User message background color */
+    color: #fff; /* Text color */
+    align-content: end; /* Align user messages to the right */
+}
+
+.response-item.chatbot-message {
+    display: flex; /* Ensure chatbot messages are flex items */
+    flex-wrap: wrap; /* Allow wrapping to the next line if needed */
+    font-family: Arial, sans-serif;
+    font-size: 1.2rem;
+    overflow: hidden; /* Ensures text doesn't overflow */
+    border-right: 2px solid transparent; /* Creates cursor effect */
+    animation: typing 1s steps(40, end), blink-caret 0.75s step-end;
+}
+
+@keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
   }
   
-  .user-message {
-    background-color: #e0f7fa;
-    float: right;
+  @keyframes blink-caret {
+    from, to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: black;
+    }
   }
 
-  .user-message textarea {
-    resize: none; /* Disable resizing */
-    overflow-y: hidden; /* Hide overflow initially */
-    width: 100%;
-}
-  
-  .chatbot-message {
-    background-color: #ff7f0e; /* OSU orange */
-    float: left;
-  }
-
-body {
-    background-color: #ff7f0e; /* OSU orange */
-    color: #333; /* Dark text for readability */
+.response-item.chatbot-message .text-block {
+    background-color: #f0f0f0; /* Chatbot message background color */
+    color: #000; /* Text color */
+    flex: 1; /* Allow each response to grow and shrink as needed */
+    margin: 5px; /* Add some margin between responses */
 }
 
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    background-color: #fff; /* White background for content */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Light shadow */
+.response-item.chatbot-message .response {
+    flex: 1;
+    margin: 5px;
 }
 
-h1, h2 {
-    color: #fff; /* White headings */
+.user-input {
+    background-color: #fff; /* White background for input area */
+    border-top: 1px solid #ccc; /* Gray border on top */
+    z-index: 1000; /* Ensure input area is on top */
 }
 
-ul {
-    padding-left: 20px; /* Indent list items */
+.user-input textarea {
+    resize: none; /* Disable textarea resizing */
+    border: none; /* Remove border */
+    width: calc(100% - 100px); /* Adjust width */
+    min-height: 50px; /* Minimum height */
 }
 
-button {
-    background-color: #ff7f0e; /* OSU orange */
-    color: #fff; /* White text */
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+.user-input button {
+    width: 100px; /* Button width */
+    border-radius: 0 5px 5px 0; /* Rounded corners */
 }
 
-button:hover {
-    background-color: #e65c00; /* Darker orange on hover */
+/* Typing Bubble Styles */
+.typing-bubble .text-block {
+    background-color: #e0e0e0;
+    color: #555;
+    font-style: italic;
 }
 
-.btn-primary:disabled {
-    background-color: #ff7f0e; /* OSU orange */
-    opacity: 0.65; /* Reduce opacity for disabled state */
-}
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column; /* Stack columns on smaller screens */
+    }
 
-.response-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-  
-  .response-item {
-    display: flex;
-    margin-bottom: 20px;
-  }
-  
-  .response {
-    background-color: #f0f0f0; /* Light gray background */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 12px;
-    width: 100%; /* Ensures the response box takes full width */
-    box-sizing: border-box;
-    margin-bottom: 10px;
-  }
-  
-  .text-block {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%; /* Ensures texts within each message take full width */
-  }
-  
-  .text-block .response {
-    flex: 0 0 50%; /* Two responses side by side */
-    padding: 6px;
-    box-sizing: border-box;
-  }
-  
-  .text-block .response p {
-    margin: 0;
-    background-color: #e6e6e6; /* Light background for each text block */
-    border-radius: 4px;
-  }
+    .sidebar {
+        width: 100%; /* Full width sidebar */
+    }
+
+    .chat-area {
+        flex: 1; /* Expand chat area to fill remaining space */
+    }
+}
