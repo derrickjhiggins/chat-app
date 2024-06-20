@@ -26,7 +26,6 @@ def get_response():
         chatbot_response.pop(1) # remove llama response
     elif model_selction == "llama":
         chatbot_response.pop(0) # remove gpt response
-    print(jsonify(chatbot_response))
     return jsonify(chatbot_response)
 
 # sample process_query return
@@ -48,7 +47,6 @@ def process_query(user_input):
         ]
     }
     summaryString = "Here is an example summary string"
-    print([gpt_response, llama_response, summaryString])
     return [gpt_response, llama_response, summaryString]
 
 if __name__ == '__main__':
